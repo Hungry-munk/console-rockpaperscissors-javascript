@@ -1,7 +1,7 @@
 let result,
     comScore=0,
     userScore=0,
-    userChoice;
+    userChoice
 
 function getUserChoice(){
     userChoice=prompt("enter rock, paper or scissors")
@@ -22,16 +22,17 @@ function getComputerChoice(){//choosing an answer for the computer
         randomNum = Math.floor(Math.random()*choice.length)
         return choice[randomNum]
 };
-function displayScore(){
-    if (comScore>userScore){
-        console.log(`the scores are\ncomputer :${comScore} User :${userScore} \nComputer is Winning!`)
-    }else if(comScore<userScore){
-        console.log(`the scores are\ncomputer :${comScore} User :${userScore} \nUser is Winning!`)
-    }else{
-        console.log(`the scores are\ncomputer :${comScore} User :${userScore} \ curently it's a Draw!`)
-    }
 
-}
+// not neeed anymore
+// function displayScore(){
+//     if (comScore>userScore){
+//         console.log(`the scores are\ncomputer :${comScore} User :${userScore} \nComputer is Winning!`)
+//     }else if(comScore<userScore){
+//         console.log(`the scores are\ncomputer :${comScore} User :${userScore} \nUser is Winning!`)
+//     }else{
+//         console.log(`the scores are\ncomputer :${comScore} User :${userScore} \ curently it's a Draw!`)
+//     }
+
 function match(userChoice,comChoice){
     if (userChoice===comChoice){
         result = "You Draw!"
@@ -52,23 +53,42 @@ function match(userChoice,comChoice){
         };
     };
 
-    console.log(result)
+    document.getElementById('result').textContent = result;
+    document.getElementById('uscore').textContent = userScore;
+    document.getElementById('cscore').textContent = comScore;
+
+    //saying who is winning even tohugh you can look at scores
+    document.getElementById('winner'). textContent = comScore == userScore ? 'Its a draw' : 
+        comScore > userScore ? 'computer is winning':"user is winning";
 };
 
-while(userChoice!=='quit'||null){
-    getUserChoice()
+const btns = document.querySelectorAll('button')
 
-    if(userChoice=='quit'||null){
-        console.log('game Finished!')
-        let finalResult;
-        if (comScore>userScore){
-            finalResult=`the scores are\ncomputer :${comScore} User :${userScore} \nComputer Wins!`
-        }else if(comScore<userScore){
-            finalResult=`the scores are\ncomputer :${comScore} User :${userScore} \nUser Wins!`
-        }else{
-            finalResult=`the scores are\ncomputer :${comScore} User :${userScore} \ Draw!`
-        }
-        console.log(finalResult)
-    }else if(userChoice=='score'){displayScore()
-    }else{match(userChoice,getComputerChoice())};
-};
+btns.forEach(btn =>{
+    btn.addEventListener('click', ()=>  {
+
+        if (btn.id == 'rock')userChoice = 'rock';//checking whatr button was clicked
+        else if (btn.id == 'paper')userChoice = 'paper';
+        else if (btn.id == 'scissors')userChoice = 'scissors';
+
+        match(userChoice,getComputerChoice());
+        
+    });
+});
+
+
+
+    //not needed any more
+    // if(userChoice=='quit'||null){
+    //     console.log('game Finished!')
+    //     let finalResult;
+    //     if (comScore>userScore){
+    //         finalResult=`the scores are\ncomputer :${comScore} User :${userScore} \nComputer Wins!`
+    //     }else if(comScore<userScore){
+    //         finalResult=`the scores are\ncomputer :${comScore} User :${userScore} \nUser Wins!`
+    //     }else{
+    //         finalResult=`the scores are\ncomputer :${comScore} User :${userScore} \ Draw!`
+    //     }
+    //     console.log(finalResult)
+    // }else if(userChoice=='score'){displayScore()
+    // }else{match(userChoice,getComputerChoice())};
